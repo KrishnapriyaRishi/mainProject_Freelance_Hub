@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {%block title%}
+<title>Service List</title>
+{%endblock%} {%block content%}
+<div class="container text-center py-5 table-responsive">
+  <h2 class="fw-bold mb-4">All Services - Admin Access</h2>
+
+  <a href="{% url 'addServices' %}" class="btn btn-primary btn-lg mb-3"
+    >Add Services</a
+  >
+
+  <table class="table table-success table-striped">
+    <tr>
+      <th>&nbsp;Service</th>
+      <th>&nbsp;Price</th>
+      <th>&nbsp;Edit</th>
+      <th>&nbsp;Delete</th>
+    </tr>
+    {%for i in serv %}
+    <tr>
+      <td>{{i.name}}</td>
+      <td>&nbsp;Rs.{{i.price}}/hour</td>
+
+      <td>
+        &nbsp;<a
+          href="{% url 'editServiceAdmin' i.id %}"
+          class="btn btn-dark btn-lg px-2"
+          >Edit</a
+        >
+      </td>
+
+      <td>
+        &nbsp;<a
+          href="{% url 'deleteServiceAdmin' i.id %}"
+          class="btn btn-dark btn-lg p-2">Delete</a>
+      </td>
+    </tr>
+    {%endfor%}
+  </table>
+</div>
+
+{%endblock%}

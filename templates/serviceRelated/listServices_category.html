@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {%block title%}
+<title>Service List</title>
+{%endblock%} {%block content%}
+<div class="container text-center py-5 table-responsive">
+  <h2 class="fw-bold mb-4">{{sc.name}} Services</h2>
+
+  <table class="table table-success table-striped">
+    <tr>
+      <th>&nbsp;Service</th>
+      <th>&nbsp;Price</th>
+
+      {%if request.user.role == "customer"%}
+      <th>&nbsp;Action</th>
+      {%endif%}
+    </tr>
+    {%for i in serv %}
+    <tr>
+      <td>{{i.name}}</td>
+      <td>&nbsp;&nbsp;&nbsp;Rs.{{i.price}} /hour</td>
+      {%if request.user.role == "customer"%}
+      <td>
+        &nbsp;&nbsp;<a href="{% url 'create_booking' i.id %}" class="btn btn-dark btn-lg px-2"
+          >Book</a
+        >
+      </td>
+      {%endif%}
+
+    </tr>
+    {%endfor%}
+  </table>
+</div>
+
+{%endblock%}

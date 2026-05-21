@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Segoe UI", sans-serif;
+}
+
+.main_base {
+  min-height: 84vh;
+ 
+}
+td { font-size: 1.2rem; } /* Small screens */
+@media (min-width: 768px) {
+  td { font-size: 1.1rem; } /* Tablets and up */
+}

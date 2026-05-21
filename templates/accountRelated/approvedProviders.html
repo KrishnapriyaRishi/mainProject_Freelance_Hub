@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}
+<title>Approved Service Providers</title>
+{%endblock%}
+{%block link%}
+<link rel="stylesheet" href="#">
+{%endblock%}
+{%block content%}
+<div class="container">
+	<div class="card mt-4 p-3">
+        <h5>Pending Provider Approvals</h5>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Service Category</th>
+			  <th>Availability</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for i in provider %}
+            <tr>
+              <td>{{i.user.username}}</td>
+              <td>{{i.user.email}}</td>
+              <td>
+                {{i.service_field}}
+              </td>
+              <td>
+               {{i.availabilty_status}}
+              </td>
+            </tr>
+            {%endfor%}
+            
+          </tbody>
+        </table>
+      </div>
+</div>
+{%endblock%}

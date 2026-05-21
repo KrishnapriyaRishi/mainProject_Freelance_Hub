@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+{%block title%} <title>Registration page</title>{%endblock%}
+{%block link%}
+<link rel="stylesheet" href="/static/css/registerUser.css">
+{%endblock%}
+
+{%block content%}
+
+<div class="main_registerform mx-auto">
+	<h2>Registration Form</h2>
+  	<form method="post">
+    	{%csrf_token%}
+    	
+			{{form.as_p}}
+		
+
+    	<input type="submit" value="Register" />
+
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} {% endif %}
+        {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+  </form>
+</div>
+
+
+{%endblock%}

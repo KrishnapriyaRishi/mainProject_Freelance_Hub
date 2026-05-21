@@ -1,0 +1,197 @@
+
+{%extends 'base.html'%}
+{%block title%}
+    <title>Booking Chat</title>
+{%endblock%}
+	{%block link%}
+    
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="/static/css/chat.css">
+	{%endblock%}
+
+	{%block content%}
+
+<div class="chat-container">
+
+    <div class="chat-header d-flex justify-content-between align-items-center">
+
+        <div class="d-flex align-items-center">
+
+            <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center"
+                 style="width:55px;height:55px;font-size:20px;">
+
+                <i class="bi bi-person-fill"></i>
+
+            </div>
+
+            <div class="ms-3">
+                <h5 class="mb-0 fw-bold">
+                    {{ booking.provider.user.username }}
+                </h5>
+
+                <small class="text-success">
+                    {{ booking.status }}
+                </small>
+            </div>
+
+        </div>
+
+        <a href="{% url 'booking-list' %}" class="btn btn-light rounded-pill">
+            <i class="bi bi-arrow-left me-2"></i>
+            Back
+        </a>
+
+    </div>
+
+    <div class="chat-body" id="chatBody">
+
+        <div class="booking-card">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <small class="text-muted">Service</small>
+                    <h6 class="fw-bold">
+                        {{ booking.service.name }}
+                    </h6>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <small class="text-muted">Booking ID</small>
+                    <h6 class="fw-bold">
+                        #{{ booking.id }}
+                    </h6>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <small class="text-muted">Scheduled Date</small>
+                    <h6 class="fw-bold">
+                        {{ booking.scheduled_date }}
+                    </h6>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <small class="text-muted">Address</small>
+                    <h6 class="fw-bold">
+                        {{ booking.address }}
+                    </h6>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% for message in messages %}
+
+            {% if message.sender == request.user %}
+
+                <div class="message-row sent">
+                    <div class="message-bubble">
+                        {{ message.message }}
+                        <div class="message-time">
+                            {{ message.timestamp|date:"h:i A" }}
+                        </div>
+                    </div>
+                </div>
+
+            {% else %}
+
+                <div class="message-row received">
+                    <div class="message-bubble">
+                        {{ message.message }}
+                        <div class="message-time">
+                            {{ message.timestamp|date:"h:i A" }}
+                        </div>
+                    </div>
+                </div>
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+    <div class="chat-footer">
+
+        <div class="d-flex align-items-center gap-2">
+
+            <input type="text"
+                   id="messageInput"
+                   class="form-control message-input"
+                   placeholder="Type your message...">
+
+            <button class="btn btn-primary send-btn"
+                    onclick="sendMessage()">
+
+                <i class="bi bi-send-fill"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    const bookingId = "{{ booking.id }}";
+
+    const socket = new WebSocket(
+        `ws://${window.location.host}/ws/chat/${bookingId}/`
+    );
+
+    socket.onmessage = function(e){
+
+        const data = JSON.parse(e.data);
+
+        appendMessage(data.message, data.sender);
+    };
+
+    function sendMessage(){
+
+        const input = document.getElementById('messageInput');
+
+        const message = input.value.trim();
+
+        if(message === '') return;
+
+        socket.send(JSON.stringify({
+            'message': message
+        }));
+
+        input.value = '';
+    }
+
+    function appendMessage(message, sender){
+
+        const currentUser = "{{ request.user.username }}";
+
+        const type = sender === currentUser ? 'sent' : 'received';
+
+        const chatBody = document.getElementById('chatBody');
+
+        const row = document.createElement('div');
+
+        row.classList.add('message-row', type);
+
+        row.innerHTML = `
+            <div class="message-bubble">
+                ${message}
+                <div class="message-time">
+                    Just now
+                </div>
+            </div>
+        `;
+
+        chatBody.appendChild(row);
+
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+</script>
+
+{%endblock%}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+ {%block title%}
+<title>Users List</title>
+{%endblock%} 
+ {%block content%}
+<div class="container text-center py-5 table-responsive">
+  <h2 class="fw-bold mb-4">Users</h2>
+
+  <a href="http://127.0.0.1:8000/admin/" class="btn btn-primary btn-lg mb-3">Access Django Admin</a>
+
+  <table class="table table-success table-striped">
+    <tr >
+      <th>&nbsp;Username</th>
+      <th>&nbsp;Email</th>
+      <th>&nbsp;Role</th>
+    </tr>
+    {%for i in user %}
+    <tr >
+      <td>&nbsp;{{i.username}}</td>
+      <td>&nbsp;{{i.email}}</td>
+      <td>&nbsp;{{i.role}}</td>
+    </tr>
+    {%endfor%}
+  </table>
+</div>
+
+{%endblock%}

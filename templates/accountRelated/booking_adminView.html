@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+ {%block title%}
+<title>Users List</title>
+{%endblock%} 
+ {%block content%}
+<div class="container text-center py-5 table-responsive">
+  <h2 class="fw-bold mb-4">Booking Details</h2>
+
+  <table class="table table-success table-striped">
+    <tr >
+      <th>&nbsp;Booked Service</th>
+      <th>&nbsp;Customer</th>
+      <th>&nbsp;Provider</th>
+	  <th>&nbsp;Status</th>
+    </tr>
+    {%for b in booking %}
+    <tr >
+      <td>&nbsp;{{b.service.name}}</td>
+      <td>&nbsp;{{b.customer.username}}</td>
+      <td>&nbsp;{{b.provider.user.username}}</td>
+	  <td>&nbsp;{{b.status}}</td>
+    </tr>
+    {%endfor%}
+  </table>
+</div>
+
+{%endblock%}

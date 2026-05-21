@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{%block title%}
+<title>Service List</title>
+{%endblock%}
+{%block link%}
+<link rel="stylesheet" href="/static/css/listBookings.css">
+{%endblock%}
+
+
+{%block content%}
+<div class="container-fluid main-booking">
+	
+	<div class="card mt-4 p-3 table-responsive">
+        <h5 class="mx-auto text-center mb-5">Booking Details</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Customer</th>
+			  <th>Scheduled Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% if not bookings%}
+            <tr>
+              <td colspan="3">No booking available</td>
+            </tr>
+            {%else%} 
+			
+			{%for b in bookings%}
+            <tr>
+              <td>{{b.service.name}}</td>
+              <td>{{b.customer.username}}</td>
+			  <td>{{b.scheduled_date}}</td>
+				{% if b.status == 'accepted' %}
+              <td>
+                <a href="{% url 'provider_startWork' b.id %}" class="btn btn-sm btn-success">Start Work</a>
+              </td>
+
+			  {% elif b.status == 'in_progress' %}
+			  <td colspan="2">
+                <a href="{% url 'provider_completedWork' b.id %}" class="btn btn-sm btn-success">Completed</a>
+				<a href="{% url 'provider_cancelledWork' b.id %}" class="btn btn-sm btn-danger">Cancelled</a>
+              </td>
+        {%elif b.status == 'completed' %}
+              <td>Payment finished</td>
+			  {%else%}
+			  <td><em>{{b.status}}</em></td>
+			  {%endif%}
+
+            </tr>
+
+            {%endfor%} 
+			{%endif%}
+          </tbody>
+        </table>
+      </div>
+	
+	
+</div>
+{%endblock%}

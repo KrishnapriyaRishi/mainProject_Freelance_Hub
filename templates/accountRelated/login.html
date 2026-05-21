@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+	<link rel="stylesheet" href="/static/css/login.css">
+  </head>
+  <body>
+    <div class="container d-flex align-items-center justify-content-center vh-100">
+
+      <div class="main-login card w-45 bg-light py-5 text-center d-flex flex-column gap-2">
+      <h3 class="lato-light">Login</h3>
+      <form method="post" class="d-flex flex-column px-5 mt-4">
+        {%csrf_token%}
+        <div class="mb-4">
+          
+          <input type="text" placeholder="Username" name="username" class="form-control"/></div>
+        <div class="mb-4">
+         <input type="password" placeholder="Password" name="password" class="form-control" /></div>
+        <div class="mb-3"> <input type="submit" value="login" class="btn btn-primary"/></div>
+       
+      </form>
+      </div>
+    </div>
+  </body>
+</html>

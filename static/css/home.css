@@ -1,0 +1,15 @@
+.hero {
+  background: linear-gradient(to right, #0d6efd, #6610f2);
+  color: white;
+  padding: 100px 0;
+}
+.service-card:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
+  cursor: pointer;
+}
+.cta {
+  background: #eaedf1;
+  padding: 60px 0;
+}
+

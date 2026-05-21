@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+ {%block title%}
+<title>Approved Providers</title>
+{%endblock%} 
+ {%block content%}
+<div class="container text-center py-5 table-responsive">
+  <h2 class="fw-bold mb-4">Approved Providers - Admin Access</h2>
+
+  <table class="table table-success table-striped">
+    <tr >
+      <th>&nbsp;Provider</th>
+      <th>&nbsp;Email</th>
+      <th>&nbsp;Services</th>
+	  <th>&nbsp;Availability</th>
+    </tr>
+    {%for i in pro %}
+    <tr >
+      <td>&nbsp;{{i.user.username}}</td>
+      <td>&nbsp;{{i.user.email}}</td>
+      <td>&nbsp;{{i.service_names}}</td>
+	  <td>&nbsp;{{i.availabilty_status}}</td>
+    </tr>
+    {%endfor%}
+  </table>
+</div>
+
+{%endblock%}
